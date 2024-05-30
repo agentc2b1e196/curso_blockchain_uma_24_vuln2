@@ -94,8 +94,8 @@ backend = eth_tester.backend
 if not w3.is_connected():
     raise Exception("Failed to connect")
 
-contract_source_path = 'contract.sol'
-compiled_sol = compile_source_file('contract.sol')
+contract_source_path = 'Pseudoaleatoriedad.sol'
+compiled_sol = compile_source_file('Pseudoaleatoriedad.sol')
 
 contract_id, contract_interface = compiled_sol.popitem()
 
