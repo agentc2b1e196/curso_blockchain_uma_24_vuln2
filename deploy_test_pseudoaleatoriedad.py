@@ -53,8 +53,8 @@ def send_eth(sender_sk, sender_addr, destination):
 
     initial_balance_sender = w3.eth.get_balance(sender_addr)
     initial_balance_recipient = w3.eth.get_balance(destination)
-    print(f"Initial balance of sender: {w3.from_wei(initial_balance_sender, 'ether')} ETH")
-    print(f"Initial balance of recipient: {w3.from_wei(initial_balance_recipient, 'ether')} ETH")
+    #print(f"Initial balance of sender: {w3.from_wei(initial_balance_sender, 'ether')} ETH")
+    #print(f"Initial balance of recipient: {w3.from_wei(initial_balance_recipient, 'ether')} ETH")
 
     amount = w3.to_wei(100, 'ether')
 
@@ -76,13 +76,13 @@ def send_eth(sender_sk, sender_addr, destination):
 
     # Wait for the transaction receipt
     tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
-    print(f"Transaction hash: {tx_receipt.transactionHash.hex()}")
+    #print(f"Transaction hash: {tx_receipt.transactionHash.hex()}")
 
     # Check final balances
     final_balance_sender = w3.eth.get_balance(sender_addr)
     final_balance_recipient = w3.eth.get_balance(destination)
-    print(f"Final balance of sender: {w3.from_wei(final_balance_sender, 'ether')} ETH")
-    print(f"Final balance of recipient: {w3.from_wei(final_balance_recipient, 'ether')} ETH")
+    #print(f"Final balance of sender: {w3.from_wei(final_balance_sender, 'ether')} ETH")
+    #print(f"Final balance of recipient: {w3.from_wei(final_balance_recipient, 'ether')} ETH")
 
 #w3 = Web3(EthereumTesterProvider(PyEVMBackend()))
 
@@ -126,13 +126,17 @@ print(contract.functions.read_message().call())
 print(contract.functions.read_number().call())
 
 
-for i in range(10):
+for i in range(100):
     #new_account = Account.create()
     #private_key = new_account._private_key.hex()
     #public_address = new_account.address
     #print(public_address)
     #address = w3.personal.newAccount('the-passphrase')
     #contract.functions.test_pseudorandomness(public_address).call()
+    new_account = Account.create()
+    private_key = new_account._private_key.hex()
+    public_address = new_account.address
+    send_eth(sender_sk, sender_addr, public_address)
     tx = contract.functions.test_pseudorandomness(public_address).build_transaction({
         'from': public_address,
         'nonce': w3.eth.get_transaction_count(public_address),

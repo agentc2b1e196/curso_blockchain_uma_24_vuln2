@@ -34,7 +34,27 @@ contract HelloWorld {
    }
 
    // TODO: change public simulate attack vector
+   // analogy to PoW. THRESHOLD similar to Difficulty parameter. Difference:
+   // Since block.number and block.timestamp can be known in advance, there is no difference in security
    function test_pseudorandomness(address user) public {
+        uint256 randomNumber = uint8(
+            uint256(
+                keccak256(
+                    abi.encodePacked(
+                        user
+        ))));
+
+        if (randomNumber < THRESHOLD) {
+            string memory newMessage = "BROKEN";
+            message = newMessage;
+        } else {
+            string memory newMessage = "Hello World";
+            message = newMessage;
+        }
+        r = randomNumber;
+    }
+
+    function test_pseudorandomness2(address user) public {
         uint256 randomNumber = uint8(
             uint256(
                 keccak256(
@@ -44,8 +64,11 @@ contract HelloWorld {
                         user
         ))));
 
-        if (randomNumber < 256) {
+        if (randomNumber < THRESHOLD) {
             string memory newMessage = "BROKEN";
+            message = newMessage;
+        } else {
+            string memory newMessage = "Hello World";
             message = newMessage;
         }
         r = randomNumber;
