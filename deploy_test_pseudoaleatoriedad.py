@@ -78,7 +78,6 @@ def send_eth(sender_sk, sender_addr, destination):
     tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
     #print(f"Transaction hash: {tx_receipt.transactionHash.hex()}")
 
-    # Check final balances
     final_balance_sender = w3.eth.get_balance(sender_addr)
     final_balance_recipient = w3.eth.get_balance(destination)
     #print(f"Final balance of sender: {w3.from_wei(final_balance_sender, 'ether')} ETH")
