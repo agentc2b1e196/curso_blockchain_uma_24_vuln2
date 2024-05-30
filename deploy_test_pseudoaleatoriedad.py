@@ -53,7 +53,6 @@ def send_eth(sender_sk, sender_addr, destination):
 
     initial_balance_sender = w3.eth.get_balance(sender_addr)
     initial_balance_recipient = w3.eth.get_balance(destination)
-    #print(f"Initial balance of sender: {w3.from_wei(initial_balance_sender, 'ether')} ETH")
     #print(f"Initial balance of recipient: {w3.from_wei(initial_balance_recipient, 'ether')} ETH")
 
     amount = w3.to_wei(100, 'ether')
