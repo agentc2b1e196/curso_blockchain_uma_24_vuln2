@@ -16,14 +16,7 @@ def compile_source_file(file_path):
    return compile_source(source,output_values=['abi','bin'])
 
 
-#def deploy_contract(w3, contract_interface):
-#    tx_hash = w3.eth.contract(abi=contract_interface['abi'],
-#        bytecode=contract_interface['bin']).constructor().transact()
-
-#    address = w3.eth.get_transaction_receipt(tx_hash)['contractAddress']
-#    return address
-
-def deploy_contract(w3, contract_interface):
+def deploy_test_contract(w3, contract_interface):
     contract = w3.eth.contract(abi=contract_interface['abi'], bytecode=contract_interface['bin'])
     constr = contract.constructor('Hello World')
     tx_hash = constr.transact()
@@ -76,8 +69,6 @@ def send_eth(sender_sk, sender_addr, destination):
     }
 
     # Sign the transaction with the sender's private key
-    #private_key = "0x<your_private_key_here>"  # replace with the actual private key of the sender
-    #private_key = sender.privateKey  # replace with the actual private key of the sender
     signed_tx = w3.eth.account.sign_transaction(tx, sender_sk)
 
     # Send the transaction
@@ -108,8 +99,8 @@ compiled_sol = compile_source_file('contract.sol')
 
 contract_id, contract_interface = compiled_sol.popitem()
 
-address = deploy_contract(w3, contract_interface)
-print(f'Deployed {contract_id} to: {address}\n')
+address = deploy_test_contract(w3, contract_interface)
+print(f'Deployed test contract {contract_id} to: {address}\n')
 
 test_transaction(address)
 #read_msg_transaction(address)
@@ -142,7 +133,15 @@ for i in range(10):
     #print(public_address)
     #address = w3.personal.newAccount('the-passphrase')
     #contract.functions.test_pseudorandomness(public_address).call()
-    tx_hash = contract.functions.test_pseudorandomness(public_address).transact({'from': private_key})
+    tx = contract.functions.test_pseudorandomness(public_address).build_transaction({
+        'from': public_address,
+        'nonce': w3.eth.get_transaction_count(public_address),
+        'gas': 2000000,
+        'gasPrice': w3.to_wei('50', 'gwei')
+    })
+    signed_tx = w3.eth.account.sign_transaction(tx, private_key=private_key)
+    tx_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+    #tx_hash = contract.functions.test_pseudorandomness(public_address).transact({'from': public_address})
     tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
     print(contract.functions.read_message().call())
     print(contract.functions.read_number().call())
