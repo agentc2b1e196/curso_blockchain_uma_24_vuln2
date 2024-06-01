@@ -44,7 +44,7 @@ persistiría en cualquier caso.
 
 El problema se puede modelar como una distribución binomial:
 
-$$F(k;n,p) = F_{F\text{-distribution}}\left(x=\frac{1-p}{p}\frac{k+1}{n-k};d_1=2(n-k),d_2=2(k+1)\right)$$
+$$F(k;n,p) = \Pr(X \le k) = \sum_{i=0}^{\lfloor k \rfloor} {n\choose i}p^i(1-p)^{n-i}$$
 
 donde n es el número de intentos y p la probabilidad de éxito.
 
@@ -60,11 +60,11 @@ stats.py 100 10
 
 Para n=1000 y t=10 obtendremos entre 16 y 64 éxitos (posibles NFTs).
 
-![plot](./img/n2000_t10.png.png)
+![plot](./img/n2000_t10.png)
 
 Si aumentamos el número de intentos la curva se desplaza a la derecha.
 
-![plot](./img/n2000_t16.png.png)
+![plot](./img/n2000_t16.png)
 
 Si aumentamos el threshold la curva se desplaza a la derecha (menos dificil).
 
