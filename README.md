@@ -11,7 +11,7 @@ obtener entropía.
 Esta fuente de entropía permite a la máquina simular un generador de aleatoriedad
 seguro por un tiempo y espacio limitados (pseudoaleatoriedad).
 
-# Aleatoriedad en Ethereum, ¿por qué es un problema?
+# Determinismo en Ethereum, ¿por qué es un problema?
 
 La Ethereum Virtual Machine es una Maquina de Turing Universal determinista.
 Además, la blockchain de Ethereum es una base de datos publica, en la que la
@@ -37,7 +37,7 @@ Uso:
 python3 deploy_test_pseudoaleatoriedad.py
 
 Aumentando el tamaño del tipo de datos se incrementaría la complejidad del ataque
-al aumentar el espacio de búsqueda, pero el problema de no aleatoriedad
+al aumentar el espacio de búsqueda, pero el problema del determinismo
 persistiría en cualquier caso.
 
 # Análisis estadístico básico
