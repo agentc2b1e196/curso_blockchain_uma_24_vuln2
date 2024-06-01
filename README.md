@@ -28,7 +28,7 @@ Esto permite al atacante precomputar parámetros adecuados y podría, bajo
 determinadas circunstancias, aprovechar esto para obtener NFTs más
 fácilmente.
 
-# Tests, diferentes valores de threshold
+# Tests
 
 El script deploy_test_pseudoaleatoriedad.py simula un atacante que obtiene el
 NFT creando cuentas y probando a fuerza bruta.
