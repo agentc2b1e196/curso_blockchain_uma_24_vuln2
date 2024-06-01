@@ -80,11 +80,11 @@ de las votaciones de la DAO.
 Una posible solución es recurrir a la infraestructura y software de Chainlink.
 Entre otros, proporcionan oráculos.
 
-Para instalar las dependencias:
+Para instalar las dependencias:__
 npm install @chainlink/contracts
 
-Para acceder al oráculo Verifiable Random Function (VRF):
-import {VRFV2WrapperConsumerBase} from "./node_modules/@chainlink/contracts/src/v0.8/vrf/VRFV2WrapperConsumerBase.sol";
+Para acceder al oráculo Verifiable Random Function (VRF):__
+import {VRFV2WrapperConsumerBase} from "./node_modules/@chainlink/contracts/src/v0.8/vrf/VRFV2WrapperConsumerBase.sol";__
 import {LinkTokenInterface} from "./node_modules/@chainlink/contracts/src/v0.8/shared/interfaces/LinkTokenInterface.sol";
 
 Se proporciona un contrato de ejemplo Pseudoaleatoriedad_sol.sol
