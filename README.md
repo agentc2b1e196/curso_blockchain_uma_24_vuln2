@@ -77,4 +77,15 @@ de las votaciones de la DAO.
 
 # Posible solución, oráculos (Chainlink)
 
+Una posible solución es recurrir a la infraestructura y software de Chainlink.
+Entre otros, proporcionan oráculos.
 
+Para instalar las dependencias:
+npm install @chainlink/contracts
+
+Para acceder al oráculo Verifiable Random Function (VRF):
+import {VRFV2WrapperConsumerBase} from "./node_modules/@chainlink/contracts/src/v0.8/vrf/VRFV2WrapperConsumerBase.sol";
+import {LinkTokenInterface} from "./node_modules/@chainlink/contracts/src/v0.8/shared/interfaces/LinkTokenInterface.sol";
+
+Se proporciona un contrato de ejemplo Pseudoaleatoriedad_sol.sol
+basado en la documentación de Chainlink, pero simplificado.
