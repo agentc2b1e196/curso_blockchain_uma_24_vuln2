@@ -1,6 +1,7 @@
 import sys
 import time
 import pprint
+import numpy as np
 
 from web3.providers.eth_tester import EthereumTesterProvider
 from web3 import Web3
@@ -119,10 +120,12 @@ send_eth(sender_sk, sender_addr, public_address)
 
 
 #address = w3.personal.newAccount('the-passphrase')
-contract.functions.test_pseudorandomness(public_address).call()
+contract.functions.test_pseudorandomness_addr(public_address).call()
 print(contract.functions.read_message().call())
 print(contract.functions.read_number().call())
 
+vals = np.asarray([], dtype=int)
+count=0
 
 for i in range(100):
     #new_account = Account.create()
@@ -130,12 +133,12 @@ for i in range(100):
     #public_address = new_account.address
     #print(public_address)
     #address = w3.personal.newAccount('the-passphrase')
-    #contract.functions.test_pseudorandomness(public_address).call()
+    #contract.functions.test_pseudorandomness_addr(public_address).call()
     new_account = Account.create()
     private_key = new_account._private_key.hex()
     public_address = new_account.address
     send_eth(sender_sk, sender_addr, public_address)
-    tx = contract.functions.test_pseudorandomness(public_address).build_transaction({
+    tx = contract.functions.test_pseudorandomness_addr(public_address).build_transaction({
         'from': public_address,
         'nonce': w3.eth.get_transaction_count(public_address),
         'gas': 2000000,
@@ -143,11 +146,17 @@ for i in range(100):
     })
     signed_tx = w3.eth.account.sign_transaction(tx, private_key=private_key)
     tx_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
-    #tx_hash = contract.functions.test_pseudorandomness(public_address).transact({'from': public_address})
+    #tx_hash = contract.functions.test_pseudorandomness_addr(public_address).transact({'from': public_address})
     tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
-    print(contract.functions.read_message().call())
+    val = contract.functions.read_number().call()
+    vals = np.append(vals, val)
+    msg = contract.functions.read_message().call()
+    print(msg)
     print(contract.functions.read_number().call())
+    if msg == 'BROKEN':
+        count = count + 1
 
+print('Hashes precomputados con éxito ' + str(count))
 
 
 #gas_estimate = store_var_contract.functions.setVar(255).estimate_gas()
